@@ -1,0 +1,109 @@
+import os
+import pickle
+import re
+import time
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.errors import HttpError
+from google.auth.transport.requests import Request
+import requests
+from plyer import notification
+
+SCOPES = ['https://www.googleapis.com/auth/gmail.modify']
+
+# Autenticación con la API de Gmail
+def authenticate_gmail():
+    creds = None
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+    
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file('credenciales.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+
+    try:
+        service = build('gmail', 'v1', credentials=creds)
+        return service
+    except Exception as error:
+        print(f'Error al autenticar con Gmail: {error}')
+        return None
+
+# Obtener correos leídos recientemente
+def get_recently_read_emails(service, processed_ids):
+    try:
+        results = service.users().messages().list(userId='me', labelIds=['INBOX']).execute()
+        messages = results.get('messages', [])
+        
+        if not messages:
+            return []
+        
+        read_emails = []
+        for message in messages[:10]:  # Analiza los últimos 10 correos
+            msg = service.users().messages().get(userId='me', id=message['id']).execute()
+            
+            if 'UNREAD' not in msg.get('labelIds', []) and message['id'] not in processed_ids:
+                read_emails.append(msg)
+                processed_ids.add(message['id'])
+        
+        return read_emails
+    except HttpError as error:
+        print(f'Error al obtener correos: {error}')
+        return []
+
+# Analizar enlaces en un correo
+def check_links_in_email(msg):
+    body = msg['snippet']
+    urls = re.findall(r'https?://[^\s]+', body)
+    
+    for url in urls:
+        check_url_safety(url)
+
+# Verificar enlaces con Google Safe Browsing
+def check_url_safety(url):
+    API_KEY = "AIzaSyAbuGBYiyvljCnqjifX1PHg8Y_oMwV7-n8"  
+    SAFE_BROWSING_URL = "https://safebrowsing.googleapis.com/v4/threatMatches:find"
+    
+    payload = {
+        "client": {"clientId": "python-script", "clientVersion": "1.0"},
+        "threatInfo": {
+            "threatTypes": ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE"],
+            "platformTypes": ["ANY_PLATFORM"],
+            "threatEntryTypes": ["URL"],
+            "threatEntries": [{"url": url}]
+        }
+    }
+    
+    try:
+        response = requests.post(f"{SAFE_BROWSING_URL}?key={API_KEY}", json=payload)
+        data = response.json()
+        
+        if "matches" in data:
+            notification.notify(
+                title="ALERTA DE ENLACE PELIGROSO",
+                message=f"El enlace {url} es peligroso.",
+                timeout=10
+            )
+        else:
+            notification.notify(
+                title="ENLACE SEGURO",
+                message=f"El enlace {url} es seguro.",
+                timeout=10
+            )
+    except Exception as e:
+        print(f"Error verificando enlace: {e}")
+
+if __name__ == '__main__':
+    service = authenticate_gmail()
+    if service:
+        processed_ids = set()
+        while True:
+            read_emails = get_recently_read_emails(service, processed_ids)
+            for email in read_emails:
+                check_links_in_email(email)
+            time.sleep(30)  
