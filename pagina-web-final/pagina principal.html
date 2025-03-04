@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedNova</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .top-bar {
+            background: #0073e6;
+            color: white;
+            padding: 10px;
+            text-align: right;
+            font-size: 14px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .top-bar a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .main-container {
+            display: flex;
+            width: 80%;
+            margin-top: 50px;
+        }
+        .content {
+            flex: 3;
+            padding: 20px;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .post {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .post img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .sidebar {
+            flex: 1;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+            height: fit-content;
+        }
+        .sidebar h3 {
+            margin-top: 0;
+        }
+        .sidebar a {
+            display: block;
+            text-decoration: none;
+            color: #0073e6;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="/index">Iniciar sesión</a>
+        <a href="/registro">Registrarse</a>
+    </div>
+    <div class="main-container">
+        <div class="content">
+            <h1 class="title">RedNova</h1>
+            <h2>Últimos Posts</h2>
+            
+            <div class="post">
+                <div class="profile">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto de perfil de Juan Pérez">
+                    <p><strong>Juan Pérez</strong></p>
+                </div>
+                <p>¡Miren esta increíble vista desde la montaña! 🌄</p>
+                <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg" alt="Paisaje de montaña">
+            </div>
+
+            <div class="post">
+                <div class="profile">
+                    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Foto de perfil de María López">
+                    <p><strong>María López</strong></p>
+                </div>
+                <p>¡Mi nuevo gato es adorable! 🐱</p>
+                <img src="https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_1280.jpg" alt="Gato tierno">
+            </div>
+        </div>
+        <div class="sidebar">
+            <h3>Tendencias</h3>
+            <a href="#">📢 Últimas noticias sobre tecnología</a>
+            <a href="#">🎵 Las mejores canciones del mes</a>
+            <a href="#">📺 Series que no te puedes perder</a>
+            <h3>Personas que podrías conocer</h3>
+            <a href="#">👤 Pedro Gómez</a>
+            <a href="#">👤 Laura Méndez</a>
+            <a href="#">👤 Javier Fernández</a>
+        </div>
+    </div>
+</body>
+</html>

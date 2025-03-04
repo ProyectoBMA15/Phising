@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedNova</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            margin: 0;
+            padding: 0;
+        }
+        .top-bar {
+            background: #0073e6;
+            color: white;
+            padding: 10px;
+            text-align: right;
+            font-size: 14px;
+        }
+        .top-bar a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            padding: 20px;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .post {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .post img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+        }
+        .profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .post-content {
+            margin-top: 10px;
+        }
+        .sidebar {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .sidebar h3 {
+            margin-top: 0;
+        }
+        .sidebar a {
+            display: block;
+            text-decoration: none;
+            color: #0073e6;
+            margin: 5px 0;
+        }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexión Global</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #1877f2;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            padding: 20px;
+        }
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #1877f2;
+            margin-bottom: 20px;
+        }
+        .post {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .post img {
+            width: 80%;
+            border-radius: 10px;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 5px;
+        }
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .links {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        .links a {
+            text-decoration: none;
+            color: #1877f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span>Conexión Global</span>
+        <div>
+            <a href="#">Iniciar Sesión</a>
+            <a href="#">Registrarse</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="title">Conéctate con el mundo</h1>
+        
+        <div class="post">
+            <div class="profile">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuario">
+                <p><strong>Juan Pérez</strong></p>
+            </div>
+            <p>¡Miren esta increíble vista desde la montaña! 🌄</p>
+            <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg" alt="Paisaje bonito">
+        </div>
+
+        <div class="post">
+            <div class="profile">
+                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Usuario">
+                <p><strong>María López</strong></p>
+            </div>
+            <p>¡Mi nuevo gato es adorable! 🐱</p>
+            <img src="https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_1280.jpg" alt="Gatito tierno">
+        </div>
+
+        <div class="post">
+            <div class="profile">
+                <img src="https://randomuser.me/api/portraits/men/50.jpg" alt="Usuario">
+                <p><strong>Roberto Díaz</strong></p>
+            </div>
+            <p>Las últimas noticias del día: Grandes avances en tecnología espacial.</p>
+        </div>
+
+        <div class="post">
+            <div class="profile">
+                <img src="https://randomuser.me/api/portraits/women/30.jpg" alt="Usuario">
+                <p><strong>Ana Castillo</strong></p>
+            </div>
+            <p>¡Nuevo lanzamiento de videojuego! ¿Quién más lo está esperando? 🎮</p>
+        </div>
+    </div>
+</body>
+</html>

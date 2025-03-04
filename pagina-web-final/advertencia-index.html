@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advertencia de Seguridad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f8d7da;
+            flex-direction: column;
+            text-align: center;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .warning {
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #0073e6;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <p class="warning">⚠ Tu cuenta podría estar en riesgo</p>
+        <p>Hemos detectado actividad inusual en tu cuenta. Por seguridad, te recomendamos verificar tu información.</p>
+        <button onclick="window.location.href='index-falso'">Verificar cuenta</button>
+        <button onclick="window.location.href='pagina principal'">Ignorar</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Cuidado con el phishing!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #ffcccc;
+            padding: 50px;
+        }
+        .alert-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: left;
+        }
+        h2 {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="alert-box">
+        <h2>¡Has caído en una trampa de phishing! ⚠️</h2>
+        <p>Si esto hubiera sido un ataque real, alguien podría haber robado tu cuenta.</p>
+        <p><strong>Tu información ingresada:</strong></p>
+        <p>Usuario: <span id="usuario"></span></p>
+        <p>Contraseña: <span id="contrasena"></span></p>
+        <p><strong>Consejos para evitar el phishing:</strong></p>
+        <ul>
+            <li>⚠️ Nunca ingreses tu contraseña en sitios desconocidos.</li>
+            <li>🔍 Verifica siempre la URL antes de iniciar sesión.</li>
+            <li>📩 No hagas clic en enlaces sospechosos en correos electrónicos.</li>
+            <li>🔒 Usa autenticación en dos pasos cuando sea posible.</li>
+        </ul>
+        <p><a href="/">Volver a la página principal</a></p>
+    </div>
+
+    <script>
+        // Recuperar los datos ingresados en el sitio falso
+        document.getElementById("usuario").innerText = localStorage.getItem("phishing_usuario") || "Desconocido";
+        document.getElementById("contrasena").innerText = localStorage.getItem("phishing_contrasena") || "********";
+
+        // Eliminar los datos después de mostrarlos
+        localStorage.removeItem("phishing_usuario");
+        localStorage.removeItem("phishing_contrasena");
+    </script>
+</body>
+</html>

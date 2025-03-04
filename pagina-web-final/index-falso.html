@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión Falso</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+            flex-direction: column;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 10px;
+        }
+        input {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #0073e6;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Iniciar sesión</h2>
+        <input type="text" id="log_usuario" placeholder="Usuario" required>
+        <input type="password" id="log_contrasena" placeholder="Contraseña" required>
+        <button onclick="iniciarSesion()">Iniciar sesión</button>
+        <p class="error" id="log_error"></p>
+        <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+    </div>
+
+    <script>
+        async function iniciarSesion() {
+            // Obtener los valores de los campos
+            var usuario = document.getElementById("log_usuario").value.trim();
+            var contrasena = document.getElementById("log_contrasena").value.trim();
+
+            // Limpiar cualquier error previo
+            document.getElementById("log_error").textContent = "";
+
+            // Verificar si los campos están vacíos
+            if (!usuario || !contrasena) {
+                document.getElementById("log_error").textContent = "Todos los campos son obligatorios.";
+                return;
+            }
+
+            try {
+                // Enviar la solicitud al backend de Flask
+                const response = await fetch("https://pagina-web-8v73.onrender.com/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ usuario, contrasena })
+                });
+
+                const result = await response.json();
+
+                // Verificar si la respuesta es exitosa o no
+                if (result.success) {
+                    // Redirigir a la página de alerta si es exitoso
+                    window.location.href = "phishing-alerta-index.html";
+                } else {
+                    // Mostrar el mensaje de error si las credenciales no son correctas
+                    document.getElementById("log_error").textContent = result.message;
+                }
+            } catch (error) {
+                // Si hay algún error en la solicitud, mostrar un mensaje genérico
+                document.getElementById("log_error").textContent = "Error al intentar iniciar sesión. Intenta de nuevo más tarde.";
+            }
+        }
+    </script>
+</body>
+</html>

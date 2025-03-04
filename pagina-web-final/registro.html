@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+            flex-direction: column;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 10px;
+            width: 300px;
+        }
+        input {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #0073e6;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .link {
+            margin-top: 10px;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Registro</h2>
+        <input type="text" id="reg_usuario" placeholder="Usuario" required>
+        <input type="password" id="reg_contrasena" placeholder="Contraseña" required>
+        <input type="password" id="reg_confirmar_contrasena" placeholder="Confirmar Contraseña" required>
+        <button onclick="registrarUsuario()">Registrarse</button>
+        <p class="error" id="reg_error"></p>
+        <p class="link">¿Ya tienes cuenta? <a href="index">Inicia sesión aquí</a></p>
+    </div>
+
+    <script>
+        async function registrarUsuario() {
+            var usuario = document.getElementById("reg_usuario").value.trim();
+            var contrasena = document.getElementById("reg_contrasena").value;
+            var confirmarContrasena = document.getElementById("reg_confirmar_contrasena").value;
+            var error = document.getElementById("reg_error");
+
+            error.textContent = ""; // Limpiar mensaje anterior
+
+            // Validaciones
+            if (!usuario || !contrasena || !confirmarContrasena) {
+                error.textContent = "Todos los campos son obligatorios";
+                return;
+            }
+            if (usuario.length < 3) {
+                error.textContent = "El usuario debe tener al menos 3 caracteres";
+                return;
+            }
+            if (contrasena.length < 6) {
+                error.textContent = "La contraseña debe tener al menos 6 caracteres";
+                return;
+            }
+            if (contrasena !== confirmarContrasena) {
+                error.textContent = "Las contraseñas no coinciden";
+                return;
+            }
+
+            try {
+                let response = await fetch("/registro", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ usuario, contrasena })
+                });
+
+                let data = await response.json();
+
+                if (response.ok) {
+                    error.textContent = "Registro exitoso, redirigiendo...";
+                    error.classList.add("success");
+                    setTimeout(() => { window.location.href = "index"; }, 1500);
+                } else {
+                    error.textContent = data.error || "Error en el registro";
+                }
+            } catch (e) {
+                error.textContent = "Error de conexión con el servidor";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0;
+            flex-direction: column;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 10px;
+        }
+        input {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #0073e6;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Iniciar sesión</h2>
+        <input type="text" id="log_usuario" placeholder="Usuario" required>
+        <input type="password" id="log_contrasena" placeholder="Contraseña" required>
+        <button onclick="iniciarSesion()">Iniciar sesión</button>
+        <p class="error" id="log_error"></p>
+        <p>¿No tienes cuenta? <a href="registro">Regístrate aquí</a></p>
+    </div>
+
+    <script>
+        async function iniciarSesion() {
+            var usuario = document.getElementById("log_usuario").value.trim();
+            var contrasena = document.getElementById("log_contrasena").value.trim();
+            var error = document.getElementById("log_error");
+
+            error.textContent = ""; // Limpiar mensajes anteriores
+
+            if (!usuario || !contrasena) {
+                error.textContent = "Todos los campos son obligatorios";
+                return;
+            }
+
+            try {
+                let response = await fetch("https://pagina-web-8v73.onrender.com/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ usuario, contrasena })
+                });
+
+                let data = await response.json();
+
+                if (response.ok) {
+                    error.textContent = "Inicio de sesión exitoso";
+                    error.style.color = "green";
+                    setTimeout(() => {
+                        window.location.href = "advertencia-index.html";
+                    }, 1000);
+                } else {
+                    error.textContent = data.error || "Error al iniciar sesión";
+                }
+            } catch (e) {
+                error.textContent = "Error de conexión con el servidor";
+            }
+        }
+    </script>
+</body>
+</html>

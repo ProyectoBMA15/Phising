@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Seguridad - RedNova</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h2 {
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #ff4b2b;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #ff1b1b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Verificación de Cuenta</h2>
+        <p>Hemos detectado actividad inusual en tu cuenta. Ingresa tus credenciales para verificar tu identidad.</p>
+        <form onsubmit="simulatePhishing(event)">
+            <input type="text" placeholder="Correo electrónico o usuario" required>
+            <input type="password" placeholder="Contraseña" required>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+    </div>
+
+    <script>
+        function simulatePhishing(event) {
+            event.preventDefault();
+            alert("Tus datos han sido enviados. Gracias por verificar tu cuenta.");
+        }
+    </script>
+</body>
+</html>
